@@ -119,3 +119,21 @@ Hibernate all'avvio dell'applicazione.
 Ho usato JPA per generare le tabelle/relazioni/progressivi etc.
 Mi sembrava più pratico e con meno margine di errore 
 ed era specificato di usare JPA quindi non vedevo il senso di fare gli script manuali come in precedenti esercizi...
+
+[EXTRA] gestione eliminazione utente con dati associati
+
+Ho aggiunto il metodo delete a UtenteService per provare ad eliminare un utente con likes e post e ho capito il problema:
+se provi a eliminare un utente che ha post, commenti o like nel db, PostgreSQL
+ti tira un errore di foreign key constraint .non puoi cancellare un record
+padre se ci sono ancora record figli collegati.
+
+non bisogna fare deleteById sull'utente, bisogna
+prima eliminare manualmente tutte le dipendenze nell'ordine giusto:
+1. like messi dall'utente su post altrui
+2. commenti scritti dall'utente su post altrui
+3. like e commenti ricevuti sui suoi post
+4. i suoi post
+5. infine l'utente
+
+Ho aggiunto anche findByUtente su LikeRepository e findByAutore su
+CommentoRepository per supportare queste query.
