@@ -88,8 +88,8 @@ Il database `socialnetwork` deve essere creato manualmente su PostgreSQL
 prima del primo avvio. Le tabelle vengono generate automaticamente da
 Hibernate all'avvio dell'applicazione.
 
-## Avvio
+## NOTA IMPORTANTE
 
-```bash
-./mvnw spring-boot:run
-```
+Ho usato JPA per generare le tabelle/relazioni/progressivi etc.
+Mi sembrava più pratico e con meno margine di errore 
+ed era specificato di usare JPA quindi non vedevo il senso di fare gli script manuali come in precedenti esercizi...
