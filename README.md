@@ -65,12 +65,38 @@ controllo con Stream prima del salvataggio.
 
 ## Schema ER
 
-```
-Utente ||--o{ Post        : "pubblica"
-Utente ||--o{ Commento    : "scrive"
-Post   ||--o{ Commento    : "riceve"
-Utente ||--o{ post_likes  : "mette"
-Post   ||--o{ post_likes  : "riceve"
+```mermaid
+erDiagram
+    UTENTI {
+        bigint id PK
+        varchar username UK
+        varchar nome_completo
+        varchar email UK
+    }
+    POSTS {
+        bigint id PK
+        text testo
+        timestamp data_pubblicazione
+        bigint autore_id FK
+    }
+    COMMENTI {
+        bigint id PK
+        text testo
+        timestamp data
+        bigint autore_id FK
+        bigint post_id FK
+    }
+    POST_LIKES {
+        bigint id PK
+        bigint utente_id FK
+        bigint post_id FK
+    }
+
+    UTENTI ||--o{ POSTS : "pubblica"
+    UTENTI ||--o{ COMMENTI : "scrive"
+    UTENTI ||--o{ POST_LIKES : "mette like"
+    POSTS ||--o{ COMMENTI : "riceve"
+    POSTS ||--o{ POST_LIKES : "riceve like"
 ```
 
 ## Configurazione
