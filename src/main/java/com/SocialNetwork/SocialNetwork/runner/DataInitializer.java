@@ -100,5 +100,11 @@ public class DataInitializer implements CommandLineRunner {
         } catch (RuntimeException e) {
             System.out.println("Eccezione corretta: " + e.getMessage());
         }
+
+        // --- [EXTRA] Eliminazione utente con post, commenti e like associati ---
+        System.out.println("\n--- [EXTRA] Eliminazione utente mario con dati associati ---");
+        utenteService.delete(mario.getId());
+        System.out.println("Utente mario eliminato correttamente.");
+        System.out.println("Utenti rimasti: " + utenteService.findAll().size());
     }
 }
